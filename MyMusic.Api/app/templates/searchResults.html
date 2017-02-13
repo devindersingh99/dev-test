@@ -1,0 +1,34 @@
+﻿<div class="container-fluid centre-block">
+    <label ng-show="error">{{errorMessage}}</label>
+    <span>Search results for - {{searchText}}</span>
+    
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th class="col-sm-3">Name</th>
+                <th class="col-sm-3">Country</th>
+                <th class="col-sm-3">Alias</th>
+                <th class="col-sm-3">ReleaseUrl</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="artist in artists.results">
+                <td>{{artist.name}}</td>
+                <td>{{artist.country}}</td>
+                <td>
+                    <span ng-repeat="ali in artist.alias">
+                        <span>{{ali}}</span><br />
+                    </span>
+                </td>
+                <td><a ui-sref="release({id:artist.uid,name:artist.name})">Releases</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="center-block" ng-show="loading">
+        Loading...
+    </div>
+    <div class="center-block" ng-show="{{hasData}}">
+        No records found
+    </div>
+
+</div>

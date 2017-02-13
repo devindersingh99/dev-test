@@ -1,0 +1,38 @@
+﻿<div class="container-fluid">
+    <label ng-show="error" class="label label-danger">{{errorMessage}}</label>
+    <span>My Favourites</span>
+    <button class="pull-right btn btn-secondary" ng-click="createList()">Add New Favourites List</button>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th class="col-sm-2">Favourite List Name</th>
+                <th class="col-sm-2">Saved Releases</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="favourite in favourites">
+                <td>
+                    {{favourite.name}}<br />
+                    <button ng-click="removeList(favourite.name)" ng-hide="favourite.name == 'Default List'">Delete List</button>
+                </td>
+                <td>
+                    <ul ng-repeat="rel in favourite.releases">
+                        <li>
+                            <span>Release Id:{{rel.releaseId}}</span><br />
+                            <span>Title:{{rel.title}}</span><br />
+                            <span>Label:{{rel.label}}</span><br />
+                            <span>Release Year:{{rel.yearOfRelease}}</span><br />
+                            <button ng-click="remove(rel.releaseId,favourite.name)">Remove from {{favourite.name}}</button>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="center-block" ng-show="loading">
+        Loading...
+    </div>
+    <div class="center-block" ng-show="favourites.length ==0 ">
+        No records found
+    </div>
+</div>

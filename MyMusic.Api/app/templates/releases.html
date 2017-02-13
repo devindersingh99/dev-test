@@ -1,0 +1,43 @@
+﻿<div class="container-fluid">
+    <label ng-show="error" class="label label-danger">{{errorMessage}}</label>
+    <span>Releases for - {{name}}</span>
+
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th class="col-sm-2">Title</th>
+                <th class="col-sm-2">Status</th>
+                <th class="col-sm-2">Label</th>
+                <th class="col-sm-1">Tracks</th>
+                <th class="col-sm-1">Release Year</th>
+                <th class="col-sm-2">Other Artists</th>
+                <th class="col-sm-2">In Favourite</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="release in releases">
+                <td>{{release.title}}</td>
+                <td>{{release.status}}</td>
+                <td>{{release.label}}</td>
+                <td>{{release.numberOfTracks}}</td>
+                <td>{{release.yearOfRelease}}</td>
+                <td>
+                    <span ng-repeat="oth in release.otherArtists">
+                        <span>{{oth}}</span><br />
+                    </span>
+                </td>
+                <td>
+                    <span ng-repeat="fav in favouriteList">
+                        <button ng-click="action(release.releaseId,$parent.$index, fav)"> {{buttonText($parent.$index, fav)}}</button>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="center-block" ng-show="loading">
+        Loading...
+    </div>
+    <div class="center-block" ng-show="releases.length < 1 ">
+        No records found
+    </div>
+</div>
