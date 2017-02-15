@@ -81,8 +81,7 @@ namespace MyMusic.Api.Controllers
 
         [Route("addrelease/{name}/{releaseId}/{title}/{label}")]
         [HttpPost]
-        //public IHttpActionResult AddReleaseToFavourite(AddFavToReleaseDto addFav)
-        public IHttpActionResult AddReleaseToFavourite(string name,string releaseId, string title, string label)
+        public IHttpActionResult AddReleaseToFavourite(string name, string releaseId, string title, string label)
         {
             if (string.IsNullOrEmpty(name))
                 return BadRequest($"{nameof(name)} can't be empty ");

@@ -16,7 +16,6 @@ namespace MyMusic.Api.Controllers
     [RoutePrefix("artist")]
     public class ArtistController : ApiController
     {
-
         public IArtistRepository ArtistRepository { get; }
         public IFavouriteRepository FavouriteRepository;
 
