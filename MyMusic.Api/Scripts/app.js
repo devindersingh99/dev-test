@@ -98,7 +98,7 @@
                 $state.go('favourite');
             }, function (err) {
                 $scope.error = true;
-                if (err.status == 409)
+                if (err.status === 409)
                     $scope.errorMessage = 'List with name '+ $scope.listName + ' already exists';
                     else
                 $scope.errorMessage = 'There was an error getting data from server. Please try again';
@@ -178,12 +178,12 @@
 
         $scope.add = function (id, name) {
             var item = $scope.releases.find(function (ele) {
-                return ele.releaseId == id;
+                return ele.releaseId === id;
             });
             favouriteService.addToFavourite(name, item.releaseId, item.title, item.label)
             .then(function (res) {
                 var idx = item.inFavourites.indexOf(name);
-                if (idx == -1)
+                if (idx === -1)
                     item.inFavourites.push(name);
             }, function (err) {
 
@@ -192,7 +192,7 @@
 
         $scope.remove = function (id, name) {
             var item = $scope.releases.find(function (ele) {
-                return ele.releaseId == id;
+                return ele.releaseId === id;
             });
             favouriteService.removeFromFavourite(name, item.releaseId)
             .then(function (res) {
@@ -208,7 +208,7 @@
         $scope.action = function (id, idx, name) {
             var itm = $scope.releases[idx];
             var item = itm.inFavourites.find(function (ele) {
-                return ele == name;
+                return ele === name;
             });
             if (item != null) {
                 $scope.remove(id, name);
@@ -222,7 +222,7 @@
 
             var itm = $scope.releases[idx];
             var item = itm.inFavourites.find(function (ele) {
-                return ele == name;
+                return ele === name;
             });
             if (item != null)
                 return 'Remove from ' + name;

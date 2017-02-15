@@ -11,6 +11,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MyMusic.Db", "MyMusic.Db\My
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FE1D39CF-550E-4B77-89A6-1F4E8191E1F7}"
 	ProjectSection(SolutionItems) = preProject
+		DatabaseScript.sql = DatabaseScript.sql
 		ReadMe.txt = ReadMe.txt
 	EndProjectSection
 EndProject
