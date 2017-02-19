@@ -53,6 +53,7 @@
     <Compile Include="ArtistRepository.cs" />
     <Compile Include="ArtistSearchResult.cs" />
     <Compile Include="InMemoryFavouriteRepository.cs" />
+    <Compile Include="PagedArtistInfo.cs" />
     <Compile Include="Repo\FavouriteReleaseInfo.cs" />
     <Compile Include="Repo\IArtistRepository.cs" />
     <Compile Include="IDatabaseConnectionFactory.cs" />

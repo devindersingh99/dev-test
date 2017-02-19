@@ -22,7 +22,7 @@ namespace MyMusic.Api.App_Start
                     .ForMember(d => d.Name, cng => cng.MapFrom(s => s.Name))
                     .ForMember(d => d.Country, cng => cng.MapFrom(s => s.Country))
                     .ForMember(d => d.Uid, cng => cng.MapFrom(s => s.UniqueId.ToString()))
-                    .ForMember(d => d.Alias, cng => cng.MapFrom(s => s.AliasList));
+                    .ForMember(d => d.ArtistAlias, cng => cng.MapFrom(s => s.ArtistAlias));
 
                 cfg.CreateMap<ArtistSearchResult, ArtistSearchResultDto>()
                 .ForMember(d => d.NumberOfPages, cng => cng.MapFrom(s => s.NumberOfPages))

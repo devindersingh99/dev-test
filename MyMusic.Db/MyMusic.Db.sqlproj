@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Artist.sql" />
-    <Build Include="Tables\ArtistAlias.sql" />
     <Build Include="StoredProcs\Artist_SearchByNameOrAlias.sql" />
   </ItemGroup>
   <ItemGroup>

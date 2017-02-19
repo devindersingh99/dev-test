@@ -24,28 +24,47 @@ namespace MyMusic.Core
 
             using (IDbConnection con = ConnectionFactory.GetConnection())
             {
-                var multiResults = await con.QueryMultipleAsync("dbo.Artist_SearchByNameOrAlias",
-                    new { SearchText = search_criteria, PageNumber = page_number, PageSize = page_Size },
-                    commandType: System.Data.CommandType.StoredProcedure);
+                //var multiResults = await con.QueryMultipleAsync("dbo.Artist_SearchByNameOrAlias",
+                //    new { SearchText = search_criteria, PageNumber = page_number, PageSize = page_Size },
+                //    commandType: System.Data.CommandType.StoredProcedure);
 
-                artists = multiResults.Read<Artist>();
-                pagingInfo = multiResults.Read<PagingInfo>().FirstOrDefault();
+                //artists = multiResults.Read<Artist>();
+                //pagingInfo = multiResults.Read<PagingInfo>().FirstOrDefault();
+
+                var res = con.Query<Artist, PagingInfo, PageArtistInfo>("dbo.Artist_SearchByNameOrAlias",
+                    (artist, pageInfo) =>
+                    {
+                        return new PageArtistInfo { Artist = artist, PageInfo = pageInfo };
+                    },
+                    new { SearchText = "Joh", Page = 1, Page_Size = 10 },
+                    commandType: System.Data.CommandType.StoredProcedure,
+                    splitOn: "NoOfRecords");
+
+                artists = res.Select(r => r.Artist);
+                pagingInfo = res.Select(r => r.PageInfo).FirstOrDefault();
+                if (pagingInfo.NoOfRecords > 0)
+                {
+                    pagingInfo.NumberOfPages = pagingInfo.NoOfRecords / pagingInfo.Page_Size;
+                    if (pagingInfo.NoOfRecords % pagingInfo.Page_Size > 0)
+                        pagingInfo.NumberOfPages += 1;
+                }
+
             }
 
-            foreach (Artist artist in artists)
-            {
-                if (artist.Alias != null)
-                    artist.AliasList.AddRange(artist.Alias.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                                                .Select(alias => alias.Trim()));
-            }
+            //foreach (Artist artist in artists)
+            //{
+            //    if (artist.Alias != null)
+            //        artist.AliasList.AddRange(artist.Alias.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+            //                                    .Select(alias => alias.Trim()));
+            //}
 
             var results = new ArtistSearchResult()
             {
                 Artists = artists.ToList(),
                 Page = pagingInfo.Page,
-                PageSize = pagingInfo.pageSize,
+                PageSize = pagingInfo.Page_Size,
                 NumberOfPages = pagingInfo.NumberOfPages,
-                NoOfSearchResults = pagingInfo.NumberOfSearchResults
+                NoOfSearchResults = pagingInfo.NoOfRecords
             };
 
 
@@ -57,4 +76,12 @@ namespace MyMusic.Core
         }
 
     }
+
+    class PageArtistInfo
+    {
+        public Artist Artist { get; set; }
+        public PagingInfo PageInfo { get; set; }
+
+    }
+
 }

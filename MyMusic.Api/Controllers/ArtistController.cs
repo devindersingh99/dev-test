@@ -27,7 +27,7 @@ namespace MyMusic.Api.Controllers
         [Route("search/{search_criteria}/{page_number}/{page_size}")]
         [HttpGet]
         public async Task<IHttpActionResult> Search(string search_criteria, int page_number, int page_size)
-        {
+         {
             if (string.IsNullOrWhiteSpace(search_criteria))
                 return BadRequest($"{nameof(search_criteria)} can't be empty");
 
@@ -37,7 +37,7 @@ namespace MyMusic.Api.Controllers
             if (page_number < 1)
                 return BadRequest($"{page_number} can't be less than 1");
 
-            var result = await ArtistRepository.SearchByNameOrAlias(search_criteria, page_number, page_size);
+            var result = await ArtistRepository.SearchByNameOrAlias(search_criteria, page_number, page_size).ConfigureAwait(false);
             var dtoResult = AutoMapperConfig.Mapper.Map<ArtistSearchResultDto>(result);
             UpdateReleasesUrls(dtoResult);
             return Ok(dtoResult);
