@@ -36,7 +36,7 @@ namespace MyMusic.Core
                     {
                         return new PageArtistInfo { Artist = artist, PageInfo = pageInfo };
                     },
-                    new { SearchText = "Joh", Page = 1, Page_Size = 10 },
+                    new { SearchText = search_criteria, Page = page_number, Page_Size = page_Size },
                     commandType: System.Data.CommandType.StoredProcedure,
                     splitOn: "NoOfRecords");
 
