@@ -31,7 +31,7 @@ namespace MyMusic.Core
                 //artists = multiResults.Read<Artist>();
                 //pagingInfo = multiResults.Read<PagingInfo>().FirstOrDefault();
 
-                var res = con.Query<Artist, PagingInfo, PageArtistInfo>("dbo.Artist_SearchByNameOrAlias",
+                var res = await con.QueryAsync<Artist, PagingInfo, PageArtistInfo>("dbo.Artist_SearchByNameOrAlias",
                     (artist, pageInfo) =>
                     {
                         return new PageArtistInfo { Artist = artist, PageInfo = pageInfo };
